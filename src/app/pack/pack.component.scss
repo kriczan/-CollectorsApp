@@ -1,0 +1,38 @@
+.main-container{
+  height: 100vh;
+  width: 100vw;
+
+    .pack-container{
+      height: 80%;
+
+        .pack{
+          position: relative;
+          top:15%;
+          margin-left: auto;
+          margin-right: auto;
+          height: 650px;
+          width:400px;
+          background: url('/assets/images/pack.png');
+        }
+    }
+
+    .menu-container{
+      height: 20%;
+
+      .menu-bar{
+        position: relative;
+        top: 30%;
+        height: 50px;
+        width:100%;
+        background-color: black;
+        opacity: 0.75;
+      }
+
+      .open-button, .back-button{
+        position: relative;
+        flex-direction: row;
+        top: 10%;
+        color: white;
+      }
+    }
+}
