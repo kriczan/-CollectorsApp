@@ -1,0 +1,15 @@
+<div id="main-container">
+
+  <div id="collection-container">
+    <div class="card" *ngFor="let card of cards" [ngClass]="{'dimmed': !isCardInUserCollection(card)}">
+      <img [src]="getCardImageUrl(card.attributes.obverse.data.attributes)" alt="Card image">
+      <div class="card-name">{{card.attributes.obverse.data.attributes.name}}</div>
+    </div>
+  </div>
+
+  <div id="menu-container">
+    <div id="menu-bar">
+      <div (click)="goToHome()" class="back-button"><span>Back</span></div>
+    </div>
+  </div>
+</div>
