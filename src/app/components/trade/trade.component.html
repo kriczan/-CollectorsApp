@@ -1,13 +1,31 @@
 <div class="main-container">
 
-  <div class="trade-container">
+  <div id="trade-container">
+
+    <div id="user-cards-container">
+      <div class="card" *ngFor="let card of userCards" (click)="setCardFromUserCollectionToTrade(card)">
+        <img [src]="getCardImageUrl(card)" alt="Card image">
+        <p class="card-name">{{getCardName(card)}}</p>
+      </div>
+    </div>
+
+    <div id="divider">
+      <img src="../../../assets/images/trade.png" />
+    </div>
+
+    <div id="all-cards-container">
+      <div class="card" *ngFor="let card of allCards" (click)="setCardFromAllCardsToTrade(card)">
+        <img [src]="getCardImageUrl(card)" alt="Card image">
+        <p class="card-name">{{getCardName(card)}}</p>
+      </div>
+    </div>
+
   </div>
 
   <div class="menu-container">
     <div class="menu-bar">
-      <div class="trade-button"><span>Trade</span></div>
+      <div class="trade-button"><span (click)="tradeCards()">Trade</span></div>
       <div (click)="goToHome()" class="back-button"><span>Back</span></div>
     </div>
   </div>
 </div>
-

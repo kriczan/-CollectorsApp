@@ -15,13 +15,16 @@ export class PackComponent {
   databaseUrl = 'http://localhost:1337';
   cards: ICardData[] = [];
   isPackOpened: boolean = false;
-  canOpenPack: boolean = true; // Można dodać logikę sprawdzającą czas
+  lastOpenTime: number | null = null;
 
   constructor(private router: Router, private cardService: CardService, private storageService: StorageService) { }
 
   openPack(): void {
-    if (this.canOpenPack) {
+    const currentTime = Date.now();
+    const lastOpenTime = parseInt(localStorage.getItem('lastOpenTime') || '0', 10);
+    if (lastOpenTime === 0 || (currentTime - lastOpenTime) >= 180000) {
       this.isPackOpened = true;
+
       this.cardService.getCards().subscribe(result => {
         if (result.data && result.data.length > 0) {
           const tempCards = [...result.data];
@@ -31,11 +34,12 @@ export class PackComponent {
             randomCards.push(tempCards.splice(randomIndex, 1)[0]);
           }
           this.cards = randomCards;
-          this.storageService.setUserCollection(this.cards);
+          this.storageService.addToUserCollection(this.cards);
         } else {
           console.error("Empty data received from API.");
         }
       });
+      localStorage.setItem('lastOpenTime', String(currentTime));
     }
   }
 

@@ -8,12 +8,20 @@
     display: flex;
     justify-content: space-around;
 
+    .count-card {
+      color: red;
+    }
+
     img {
       width: 30vh;
     }
 
     .dimmed {
       opacity: 0.5;
+    }
+
+    .card-name {
+      color: red
     }
   }
 

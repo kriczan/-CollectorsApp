@@ -10,7 +10,7 @@
   <div *ngIf="isPackOpened" id="cards-container">
     <div class="card" *ngFor="let card of cards">
       <img [src]="getCardImageUrl(card.attributes.obverse.data.attributes)" alt="Card image">
-      <div class="card-name">{{card.attributes.obverse.data.attributes.name}}</div>
+      <p class="card-name">{{card.attributes.obverse.data.attributes.name}}</p>
     </div>
   </div>
 

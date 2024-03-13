@@ -1,9 +1,10 @@
 <div id="main-container">
 
   <div id="collection-container">
-    <div class="card" *ngFor="let card of cards" [ngClass]="{'dimmed': !isCardInUserCollection(card)}">
-      <img [src]="getCardImageUrl(card.attributes.obverse.data.attributes)" alt="Card image">
-      <div class="card-name">{{card.attributes.obverse.data.attributes.name}}</div>
+    <div class="card" *ngFor="let card of cards">
+      <p class="count-card">{{getCountOfTheSameCardInCollection(card)}}</p>
+      <img [src]="getCardImageUrl(card)" alt="Card image" [ngClass]="{'dimmed': !isCardInUserCollection(card)}">
+      <p class="card-name">{{getCardName(card)}}</p>
     </div>
   </div>
 

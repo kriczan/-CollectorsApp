@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ICardAttribute, ICardData } from '../../model/ICardResponse';
+import { ICardData } from '../../model/ICardResponse';
 import { CardService } from '../../service/api/card.service';
 import { StorageService } from '../../service/storage/storage.service';
 
@@ -34,7 +34,6 @@ export class CollectionComponent implements OnInit, AfterViewInit {
   getUserCollection() {
     this.storageService.userCollectionObservator.subscribe(result => {
       this.userCards = result;
-      console.log(this.userCards);
     })
   }
 
@@ -42,9 +41,22 @@ export class CollectionComponent implements OnInit, AfterViewInit {
     return this.userCards.some(userCard => userCard.id === card.id);
   }
 
+  getCardImageUrl(card: ICardData): string {
+    return this.databaseUrl + card.attributes.obverse.data.attributes.url;
+  }
 
-  getCardImageUrl(card: ICardAttribute): string {
-    return this.databaseUrl + card.url;
+  getCardName(card: ICardData): string {
+    return card.attributes.obverse.data.attributes.name;
+  }
+
+  getCountOfTheSameCardInCollection(card: ICardData): number {
+    let cardNumber: number = 0;
+    this.userCards.forEach(cardInCollection => {
+      if (cardInCollection.id == card.id) {
+        cardNumber++;
+      }
+    })
+    return cardNumber;
   }
 
   goToHome() {

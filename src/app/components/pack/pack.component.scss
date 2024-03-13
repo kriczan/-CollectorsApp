@@ -21,6 +21,10 @@
     display: flex;
     justify-content: space-around;
 
+    .card-name {
+      color: red;
+    }
+
     img {
       width: 30vh;
     }
