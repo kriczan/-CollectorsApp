@@ -14,7 +14,7 @@
     </div>
 
     <div id="all-cards-container">
-      <div class="card" *ngFor="let card of allCards" (click)="setCardFromAllCardsToTrade(card)">
+      <div class="card" *ngFor="let card of cards" (click)="setCardFromAllCardsToTrade(card)">
         <img [src]="getCardImageUrl(card)" alt="Card image">
         <p class="card-name">{{getCardName(card)}}</p>
       </div>

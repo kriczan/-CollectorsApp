@@ -3,19 +3,18 @@ import { Router } from '@angular/router';
 import { ICardData } from '../../model/ICardResponse';
 import { CardService } from '../../service/api/card.service';
 import { StorageService } from '../../service/storage/storage.service';
+import { CardManagement } from '../../utility/CardManagement';
 
 @Component({
   selector: 'app-collection',
   templateUrl: './collection.component.html',
   styleUrl: './collection.component.scss'
 })
-export class CollectionComponent implements OnInit, AfterViewInit {
+export class CollectionComponent extends CardManagement implements OnInit, AfterViewInit {
 
-  databaseUrl = 'http://localhost:1337';
-  cards: ICardData[] = [];
-  userCards: ICardData[] = [];
-
-  constructor(private router: Router, private cardService: CardService, private storageService: StorageService) { }
+  constructor(private router: Router, cardService: CardService, storageService: StorageService) {
+    super(cardService, storageService);
+  }
 
   ngAfterViewInit(): void {
     this.getUserCollection();
@@ -25,28 +24,8 @@ export class CollectionComponent implements OnInit, AfterViewInit {
     this.getAllCards();
   }
 
-  getAllCards() {
-    this.cardService.getCards().subscribe(result => {
-      this.cards = result.data;
-    })
-  }
-
-  getUserCollection() {
-    this.storageService.userCollectionObservator.subscribe(result => {
-      this.userCards = result;
-    })
-  }
-
   isCardInUserCollection(card: ICardData): boolean {
     return this.userCards.some(userCard => userCard.id === card.id);
-  }
-
-  getCardImageUrl(card: ICardData): string {
-    return this.databaseUrl + card.attributes.obverse.data.attributes.url;
-  }
-
-  getCardName(card: ICardData): string {
-    return card.attributes.obverse.data.attributes.name;
   }
 
   getCountOfTheSameCardInCollection(card: ICardData): number {
