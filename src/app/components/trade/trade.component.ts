@@ -31,23 +31,35 @@ export class TradeComponent extends CardManagement implements OnInit {
   override getUserCollection() {
     this.storageService.userCollectionObservator.subscribe(result => {
       this.userCards = result.filter((card, index, self) =>
-        index === self.findIndex(c => c.attributes.obverse.data.attributes.name === card.attributes.obverse.data.attributes.name)
+        index === self.findIndex(c => c.attributes.obverse.data?.attributes.name === card.attributes.obverse.data?.attributes.name)
       );
     });
   }
 
   setCardFromUserCollectionToTrade(card: ICardData): void {
+    this.userCards.forEach((c) => {
+      c.selected = false;
+    })
+    card.selected = true;
+
+    // const index = this.userCards.indexOf(card);
     this.cardsToTrade[0] = card;
   }
 
   setCardFromAllCardsToTrade(card: ICardData): void {
+    this.cards.forEach((c) => {
+      c.selected = false;
+    })
+    card.selected = true;
+
+    // const index = this.cards.indexOf(card);
     this.cardsToTrade[1] = card;
   }
 
   tradeCards() {
     const currentTime = Date.now();
     const lastOpenTime = parseInt(localStorage.getItem('lastTradeTime') || '0', 10);
-    if (lastOpenTime === 0 || (currentTime - lastOpenTime) >= 180000) {
+    if (lastOpenTime === 0 || (currentTime - lastOpenTime) >= 1) {
       this.storageService.replaceCards(this.cardsToTrade[0], this.cardsToTrade[1]);
       localStorage.setItem('lastTradeTime', String(currentTime));
     }

@@ -1,73 +1,77 @@
 .main-container {
+  display: flex;
+  flex-direction: column;
   height: 100vh;
   width: 100vw;
+  overflow: hidden;
+}
 
-  p {
-    color: red;
-  }
+#trade-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px;
+  overflow: auto;
+  height: 80vh; // Ustalamy wysokość kontenera
+  padding-bottom: 20px;
+}
 
-  #trade-container {
-    height: 80%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+#user-cards-container,
+#all-cards-container {
+  width: 45vw; // Ustawiamy szerokość kontenerów kart na 45% szerokości widoku
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start; // Wyrównujemy karty do lewej strony kontenera
+  align-content: flex-start; // Wyrównujemy karty do góry kontenera
+  gap: 10px; // Ustalamy odstęp między kartami
+}
 
-    #user-cards-container {
-      min-height: 80vh;
-      width: 40vw;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      flex-wrap: wrap;
+.card {
+  width: calc((45vw - 60px) / 6); // Ustalamy szerokość kart tak, by w rzędzie mieściło się ich maksymalnie 6
+  margin-bottom: 10px; // Ustalamy odstęp pomiędzy wierszami kart
+}
 
-      img {
-        width: 30vh;
-      }
-    }
+.card img {
+  width: 100%;
+  height: auto;
+}
 
-    #divider {
-      min-height: 80vh;
-      width: 20vw;
-      display: flex;
-      align-items: center;
+#divider {
+  width: 10vw; // Szerokość dla dzielnika
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: center; // Wyśrodkowanie ikony wertykalnie
+  margin:10px;
+  filter:contrast(0);
+}
 
-      img {
-        width: 20vw;
-      }
-    }
+#divider img {
+  max-width: 100%;
+  max-height: 100%;
+}
 
-    #all-cards-container {
-      min-height: 80vh;
-      width: 40vw;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      flex-wrap: wrap;
+.menu-container {
+  width: 100%;
+  height: 20vh;
+}
 
-      img {
-        width: 30vh;
-      }
-    }
-  }
+.menu-bar {
+  display: flex;
+  justify-content: center; // Center the buttons horizontally
+  align-items: center;
+  width: 100%;
+  height: 50px;
+  background-color: black;
+  opacity: 0.75;
+  position: relative; // Add relative positioning
+  top: 20px; // Push the menu bar further down. Adjust this value as needed.
+}
 
-  .menu-container {
-    height: 20%;
-
-    .menu-bar {
-      position: relative;
-      top: 30%;
-      height: 50px;
-      width: 100%;
-      background-color: black;
-      opacity: 0.75;
-    }
-
-    .back-button,
-    .trade-button {
-      position: relative;
-      flex-direction: row;
-      top: 10%;
-      color: white;
-    }
-  }
+.menu-bar .back-button,
+.menu-bar .trade-button {
+  cursor: pointer;
+  color: white;
+  margin: 0 10px;
 }

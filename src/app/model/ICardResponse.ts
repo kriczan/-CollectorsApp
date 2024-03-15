@@ -4,6 +4,7 @@ export interface ICardResponse {
 }
 
 export interface ICardData {
+  selected: boolean;
   id: number;
   attributes: ICardDataAttribute;
 }

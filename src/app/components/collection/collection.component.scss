@@ -1,47 +1,74 @@
 #main-container {
   height: 100vh;
   width: 100vw;
+  overflow: hidden;
 
   #collection-container {
-    height: 80%;
-    margin-top: 10vh;
+    height: calc(100vh - 20vh); // zaktualizowane, aby uwzględnić wysokość menu
+    margin-top: 5vh; // zmniejszony, aby zaoszczędzić miejsce
     display: flex;
-    justify-content: space-around;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    overflow-y: auto;
+    padding: 5px; // zmniejszony padding
+    justify-content: center;
 
-    .count-card {
-      color: red;
-    }
+    .card {
+      width: calc(16.666% - 10px); // 6 kart w rzędzie (100% / 6 około 16.666%)
+      margin: 5px; // zmniejszony margines
+      flex-grow: 0;
+      flex-shrink: 0;
 
-    img {
-      width: 30vh;
-    }
+      .count-card {
+        color: white;
+        font-weight: bold;
+      }
 
-    .dimmed {
-      opacity: 0.5;
-    }
+      img {
+        width: 100%; // karty dostosują się do szerokości kontenera
+        height: auto;
+      }
 
-    .card-name {
-      color: red
+      .dimmed {
+        opacity: 0.5;
+      }
+
+      // .card-name {
+      //   color: red;
+      // }
     }
   }
 
   #menu-container {
-    height: 20%;
+    height: 15vh; // Reduce this to decrease the overall height and move the bar up
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     #menu-bar {
       position: relative;
-      top: 30%;
+      top: -5vh; // Adjust this as needed to move the bar up
       height: 50px;
       width: 100%;
       background-color: black;
       opacity: 0.75;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     #back-button {
-      position: relative;
-      flex-direction: row;
-      top: 10%;
+      cursor: pointer;
+    color: white;
+    padding: 10px 20px;
+    margin: 0 10px;
+    font-size: 1.5em; // You can adjust the font size to make the text more visible
+    background-color: transparent; // Ensuring the background is transparent (adjust as needed)
+    }
+
+    .back-button span {
       color: white;
+      cursor: pointer;
     }
   }
 }

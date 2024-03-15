@@ -2,7 +2,6 @@
   <!-- Container for pack opening -->
   <div *ngIf="!isPackOpened" id="pack-container" (click)="openPack()">
     <div id="pack">
-      <span>Open a Pack</span>
     </div>
   </div>
 
@@ -10,14 +9,14 @@
   <div *ngIf="isPackOpened" id="cards-container">
     <div class="card" *ngFor="let card of cards">
       <img [src]="getCardImageUrl(card.attributes.obverse.data.attributes)" alt="Card image">
-      <p class="card-name">{{card.attributes.obverse.data.attributes.name}}</p>
+      <!-- <p class="card-name">{{card.attributes.obverse.data.attributes.name}}</p> -->
     </div>
   </div>
 
   <!-- Menu bar -->
   <div id="menu-container">
     <div id="menu-bar">
-      <div id="open-button" (click)="openPack()"><span>Open next</span></div>
+      <div id="open-button" (click)="openPack()"><span>Open a pack</span></div>
       <div id="back-button" (click)="goToHome()"><span>Back</span></div>
     </div>
   </div>

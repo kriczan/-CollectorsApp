@@ -3,9 +3,9 @@
   <div id="trade-container">
 
     <div id="user-cards-container">
-      <div class="card" *ngFor="let card of userCards" (click)="setCardFromUserCollectionToTrade(card)">
+      <div class="card" *ngFor="let card of userCards" (click)="setCardFromUserCollectionToTrade(card)" [style.border]="card.selected ? '2px solid white' : 'none'">
         <img [src]="getCardImageUrl(card)" alt="Card image">
-        <p class="card-name">{{getCardName(card)}}</p>
+        <!-- <p class="card-name">{{getCardName(card)}}</p> -->
       </div>
     </div>
 
@@ -14,9 +14,9 @@
     </div>
 
     <div id="all-cards-container">
-      <div class="card" *ngFor="let card of cards" (click)="setCardFromAllCardsToTrade(card)">
+      <div class="card" *ngFor="let card of cards" (click)="setCardFromAllCardsToTrade(card)" [style.border]="card.selected ? '2px solid white' : 'none'">
         <img [src]="getCardImageUrl(card)" alt="Card image">
-        <p class="card-name">{{getCardName(card)}}</p>
+        <!-- <p class="card-name">{{getCardName(card)}}</p> -->
       </div>
     </div>
 

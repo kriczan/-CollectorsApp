@@ -4,7 +4,7 @@
     <div class="card" *ngFor="let card of cards">
       <p class="count-card">{{getCountOfTheSameCardInCollection(card)}}</p>
       <img [src]="getCardImageUrl(card)" alt="Card image" [ngClass]="{'dimmed': !isCardInUserCollection(card)}">
-      <p class="card-name">{{getCardName(card)}}</p>
+      <!-- <p class="card-name">{{getCardName(card)}}</p> -->
     </div>
   </div>
 
