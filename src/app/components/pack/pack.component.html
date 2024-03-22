@@ -1,15 +1,12 @@
 <div id="main-container">
-  <!-- Container for pack opening -->
   <div *ngIf="!isPackOpened" id="pack-container" (click)="openPack()">
     <div id="pack">
     </div>
   </div>
 
-  <!-- Container for cards display -->
   <div *ngIf="isPackOpened" id="cards-container">
-    <div class="card" *ngFor="let card of cards">
-      <img [src]="getCardImageUrl(card.attributes.obverse.data.attributes)" alt="Card image">
-      <!-- <p class="card-name">{{card.attributes.obverse.data.attributes.name}}</p> -->
+    <div class="card" *ngFor="let card of newCards">
+      <img [src]="'data:image/png;base64,' + card.image" alt="Card image">
     </div>
   </div>
 

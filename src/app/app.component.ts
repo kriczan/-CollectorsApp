@@ -1,5 +1,6 @@
-import { CardService } from './service/api/card.service';
 import { Component } from '@angular/core';
+import { CardService } from './service/api/card.service';
+import { StorageService } from './service/storage/storage.service';
 
 @Component({
   selector: 'app-root',
@@ -7,15 +8,14 @@ import { Component } from '@angular/core';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
+
   title = 'CollectorsApp';
 
-  dataFromApi: any;
-
-  constructor(private cardService: CardService) {}
+  constructor(private cardService: CardService, private storageService: StorageService) { }
 
   ngOnInit() {
-    this.cardService.getCards().subscribe(data => {
-      this.dataFromApi = data;
-    });
+    this.cardService.getCards().subscribe(result => {
+      this.storageService.setCards(result);
+    })
   }
 }

@@ -7,6 +7,8 @@ import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from '@angular/core';
 import { PackComponent } from './components/pack/pack.component';
 import { TradeComponent } from './components/trade/trade.component';
+import { LoginComponent } from './components/login/login.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -14,12 +16,14 @@ import { TradeComponent } from './components/trade/trade.component';
     HomeComponent,
     PackComponent,
     CollectionComponent,
-    TradeComponent
+    TradeComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule 
   ],
   providers: [],
   bootstrap: [AppComponent]
