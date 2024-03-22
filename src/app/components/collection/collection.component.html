@@ -2,7 +2,7 @@
 
   <div id="collection-container">
     <div class="card" *ngFor="let card of cards">
-      <!-- <p class="count-card">{{getCountOfTheSameCardInCollection(card)}}</p> -->
+      <p class="count-card">{{getCountOfTheSameCardInCollection(card)}}</p>
       <img [src]="'data:image/png;base64,' + card.image" alt="Card image">
     </div>
   </div>

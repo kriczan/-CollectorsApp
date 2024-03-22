@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ICard } from '../../model/ICard';
 import { CardService } from '../../service/api/card.service';
+import { CollectionService } from '../../service/collection/collection.service';
 import { StorageService } from '../../service/storage/storage.service';
 import { CardManagement } from '../../utility/CardManagement';
 
@@ -12,30 +14,18 @@ import { CardManagement } from '../../utility/CardManagement';
 })
 export class CollectionComponent extends CardManagement implements OnInit {
 
-  constructor(private router: Router, cardService: CardService, storageService: StorageService) {
-    super(cardService, storageService);
+  constructor(private router: Router, cardService: CardService, storageService: StorageService, collectionService: CollectionService) {
+    super(cardService, storageService, collectionService);
   }
 
   ngOnInit(): void {
-    this.getAllCards();
+    this.setAllCards();
+    this.setUserCollection();
   }
 
-  // isCardInUserCollection(card: ICard): boolean {
-  //   return this.userCards.some(userCard => userCard.attributes.cardCollection.data.attributes.name === card.attributes.obverse.data.attributes.name);
-  // }
-
-  // getCountOfTheSameCardInCollection(card: ICard): number {
-  //   if (this.cards != null) {
-  //     let cardNumber: number = 0;
-  //     this.userCards.forEach(cardInCollection => {
-  //       if (cardInCollection.attributes.cardCollection.data.attributes.name === card.attributes.obverse.data.attributes.name) {
-  //         cardNumber++;
-  //       }
-  //     });
-  //     return cardNumber;
-  //   }
-  //   return 0;
-  // }
+  isCardInUserCollection(card: ICard): boolean {
+    return this.userCollection.cardAmountList.some(userCard => userCard.cardId === card.id);
+  }
 
   goToHome() {
     this.router.navigate(['/home']);

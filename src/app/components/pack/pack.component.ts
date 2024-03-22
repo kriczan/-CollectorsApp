@@ -2,8 +2,10 @@
 
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { IAddCardsToCollection } from '../../model/IAddCardsToCollection';
 import { ICard } from '../../model/ICard';
 import { CardService } from '../../service/api/card.service';
+import { CollectionService } from '../../service/collection/collection.service';
 import { StorageService } from '../../service/storage/storage.service';
 import { CardManagement } from '../../utility/CardManagement';
 
@@ -17,12 +19,12 @@ export class PackComponent extends CardManagement implements OnInit {
   isPackOpened: boolean = false;
   newCards: ICard[] = [];
 
-  constructor(private router: Router, cardService: CardService, storageService: StorageService) {
-    super(cardService, storageService);
+  constructor(private router: Router, cardService: CardService, storageService: StorageService, collectionService: CollectionService) {
+    super(cardService, storageService, collectionService);
   }
 
   ngOnInit(): void {
-    this.getAllCards();
+    this.setAllCards();
   }
 
   openPack(): void {
@@ -33,9 +35,23 @@ export class PackComponent extends CardManagement implements OnInit {
       const randomIndex = Math.floor(Math.random() * this.cards.length);
       randomCards.push(this.cards.at(randomIndex)!);
     }
-
-    //TODO: Save collection to database with card id and user id (find id from username)
+    this.saveCardsInCollection(+localStorage.getItem("userId")!, randomCards);
     this.newCards = randomCards;
+  }
+
+  saveCardsInCollection(userId: number, cards: ICard[]) {
+    let cardsIds: number[] = [];
+    cards.forEach(card => {
+      cardsIds.push(card.id);
+    })
+
+    let addCardsToCollection: IAddCardsToCollection = {
+      userId: userId,
+      cardsIds: cardsIds
+    }
+
+    this.collectionService.saveCardsInCollection(addCardsToCollection).subscribe(result => {
+    })
   }
 
   goToHome() {

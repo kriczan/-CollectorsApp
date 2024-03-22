@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ICard } from '../../model/ICard';
 import { CardService } from '../../service/api/card.service';
-import { CardManagement } from '../../utility/CardManagement';
+import { CollectionService } from '../../service/collection/collection.service';
 import { StorageService } from '../../service/storage/storage.service';
+import { CardManagement } from '../../utility/CardManagement';
 
 @Component({
   selector: 'app-trade',
@@ -12,56 +13,30 @@ import { StorageService } from '../../service/storage/storage.service';
 })
 export class TradeComponent extends CardManagement implements OnInit {
 
-  cardsToTrade: ICard[] = [];
-  lastTradeTime: number | null = null;
+  cardsToTrade: number[] = [];
 
-  constructor(private router: Router, cardService: CardService, storageService: StorageService) {
-    super(cardService, storageService);
+  constructor(private router: Router, cardService: CardService, storageService: StorageService, collectionService: CollectionService) {
+    super(cardService, storageService, collectionService);
   }
 
   ngOnInit(): void {
-    this.getAllCards();
-    this.getUserCollection();
+    this.setAllCards();
+    this.setUserCollection();
   }
 
-  override getUserCollection() {
-    this.cardService.getUserCollection().subscribe(result => {
-      // this.userCards = result.filter((card, index, self) =>
-      //   index === self.findIndex(c => c.attributes.obverse.data?.attributes.name === card.attributes.obverse.data?.attributes.name)
-      // );
-      this.userCards = result.data;
+  setCardFromUserCollectionToTrade(cardId: number): void {
+    this.cardsToTrade[0] = cardId;
+  }
+
+  setCardFromAllCardsToTrade(card: ICard): void {
+    this.cardsToTrade[1] = card.id;
+  }
+
+  tradeCards() {
+    this.collectionService.trade(+localStorage.getItem("userId")!, this.cardsToTrade[0], this.cardsToTrade[1]).subscribe(result => {
+      window.location.reload();
     });
   }
-
-  // setCardFromUserCollectionToTrade(card: ICollectionCardData): void {
-  //   this.userCards.forEach((c) => {
-  //     c.selected = false;
-  //   })
-  //   card.selected = true;
-
-  //   // const index = this.userCards.indexOf(card);
-  //   this.cardsToTrade[0] = card;
-  // }
-
-  // setCardFromAllCardsToTrade(card: ICardData): void {
-  //   this.cards.forEach((c) => {
-  //     c.selected = false;
-  //   })
-  //   card.selected = true;
-
-  //   // const index = this.cards.indexOf(card);
-  //   this.cardsToTrade[1] = card;
-  // }
-
-  // tradeCards() {
-  //   const currentTime = Date.now();
-  //   const lastOpenTime = parseInt(localStorage.getItem('lastTradeTime') || '0', 10);
-  //   if (lastOpenTime === 0 || (currentTime - lastOpenTime) >= 1) {
-  //     this.storageService.replaceCards(this.cardsToTrade[0], this.cardsToTrade[1]);
-  //     localStorage.setItem('lastTradeTime', String(currentTime));
-  //   }
-  //   this.getUserCollection();
-  // }
 
   goToHome() {
     this.router.navigate(['/home']);

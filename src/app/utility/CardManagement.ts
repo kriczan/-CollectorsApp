@@ -1,24 +1,41 @@
 import { ICard } from "../model/ICard";
-import { ICollectionCardData } from "../model/ICollectionResponse";
+import { ICardCollection } from "../model/ICardCollection";
 import { CardService } from "../service/api/card.service";
+import { CollectionService } from "../service/collection/collection.service";
 import { StorageService } from "../service/storage/storage.service";
 
 export class CardManagement {
 
     protected cards: ICard[] = [];
-    protected userCards: ICollectionCardData[] = [];
+    protected userCollection: ICardCollection = {
+        userId: 0,
+        cardAmountList: []
+    };
 
-    constructor(protected cardService: CardService, protected storageService: StorageService) { }
+    constructor(protected cardService: CardService, protected storageService: StorageService, protected collectionService: CollectionService) { }
 
-    protected getAllCards(): void {
+    protected setAllCards(): void {
         this.storageService.cardsObservator.subscribe(result => {
             this.cards = result;
         })
     }
 
-    protected getUserCollection(): void {
-        this.cardService.getUserCollection().subscribe(result => {
-            this.userCards = result.data.filter(card => card.attributes.username === localStorage.getItem("username"));
-        });
+    protected setUserCollection(): void {
+        this.collectionService.getCollection(+localStorage.getItem("userId")!).subscribe(result => {
+            this.userCollection = result;
+        })
+    }
+
+    protected getCountOfTheSameCardInCollection(card: ICard): number {
+        if (this.cards != null) {
+            let cardNumber: number = 0;
+            this.userCollection.cardAmountList.forEach(cardInCollection => {
+                if (cardInCollection.cardId === card.id) {
+                    cardNumber = cardInCollection.cardAmount;
+                }
+            });
+            return cardNumber;
+        }
+        return 0;
     }
 }

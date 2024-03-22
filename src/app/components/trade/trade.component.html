@@ -3,8 +3,9 @@
   <div id="trade-container">
 
     <div id="user-cards-container">
-      <div class="card" *ngFor="let card of userCards">
-        <!-- <img [src]="getCollectionCardImageUrl(card)" alt="Card image"> -->
+      <div class="card" *ngFor="let card of cards" (click)="setCardFromUserCollectionToTrade(card.id)">
+        <p class="count-card">{{getCountOfTheSameCardInCollection(card)}}</p>
+        <img [src]="'data:image/png;base64,' + card.image" alt="Card image">
       </div>
     </div>
 
@@ -13,7 +14,7 @@
     </div>
 
     <div id="all-cards-container">
-      <div class="card" *ngFor="let card of cards">
+      <div class="card" *ngFor="let card of cards" (click)="setCardFromAllCardsToTrade(card)">
         <img [src]="'data:image/png;base64,' + card.image" alt="Card image">
       </div>
     </div>
@@ -22,7 +23,7 @@
 
   <div class="menu-container">
     <div class="menu-bar">
-      <div class="trade-button"><span>Trade</span></div>
+      <div class="trade-button" (click)="tradeCards()"><span>Trade</span></div>
       <div (click)="goToHome()" class="back-button"><span>Back</span></div>
     </div>
   </div>
