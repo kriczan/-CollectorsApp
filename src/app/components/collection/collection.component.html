@@ -1,7 +1,8 @@
 <div id="main-container">
 
   <div id="collection-container">
-    <div class="card" *ngFor="let card of cards">
+    <div class="card" *ngFor="let card of cards"
+      [ngStyle]="{'opacity': getCountOfTheSameCardInCollection(card) === 0 ? '0.5' : '1'}">
       <p class="count-card">{{getCountOfTheSameCardInCollection(card)}}</p>
       <img [src]="'data:image/png;base64,' + card.image" alt="Card image">
     </div>
