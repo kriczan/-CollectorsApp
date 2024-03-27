@@ -13,9 +13,8 @@ export class CollectionService {
 
   constructor(private http: HttpClient) { }
 
-  getCollection(userId: number): Observable<ICardCollection> {
+  getCollection(): Observable<ICardCollection> {
     let params = new HttpParams();
-    params = params.set("userId", userId.toString());
     return this.http.get<ICardCollection>(this.url, { params });
   }
 
@@ -23,10 +22,8 @@ export class CollectionService {
     return this.http.post<ICardCollection>(this.url, addCardsToCollection);
   }
 
-  trade(userId: number, oldCardId: number, newCardId: number): Observable<ICardCollection> {
-    console.log(userId);
+  trade(oldCardId: number, newCardId: number): Observable<ICardCollection> {
     let params = new HttpParams();
-    params = params.set("userId", userId.toString());
     params = params.set("oldCardId", oldCardId.toString());
     params = params.set("newCardId", newCardId.toString());
     return this.http.post<ICardCollection>(this.url + '/trade', null, { params });

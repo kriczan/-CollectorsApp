@@ -33,7 +33,7 @@ export class TradeComponent extends CardManagement implements OnInit {
   }
 
   tradeCards() {
-    this.collectionService.trade(+localStorage.getItem("userId")!, this.cardsToTrade[0], this.cardsToTrade[1]).subscribe(result => {
+    this.collectionService.trade(this.cardsToTrade[0], this.cardsToTrade[1]).subscribe(result => {
       window.location.reload();
     });
   }

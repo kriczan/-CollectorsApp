@@ -35,18 +35,17 @@ export class PackComponent extends CardManagement implements OnInit {
       const randomIndex = Math.floor(Math.random() * this.cards.length);
       randomCards.push(this.cards.at(randomIndex)!);
     }
-    this.saveCardsInCollection(+localStorage.getItem("userId")!, randomCards);
+    this.saveCardsInCollection(randomCards);
     this.newCards = randomCards;
   }
 
-  saveCardsInCollection(userId: number, cards: ICard[]) {
+  saveCardsInCollection(cards: ICard[]) {
     let cardsIds: number[] = [];
     cards.forEach(card => {
       cardsIds.push(card.id);
     })
 
     let addCardsToCollection: IAddCardsToCollection = {
-      userId: userId,
       cardsIds: cardsIds
     }
 

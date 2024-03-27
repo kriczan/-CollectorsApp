@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { IUser } from '../../model/IUser';
-import { CollectionService } from '../../service/collection/collection.service';
 import { UserService } from '../../service/user/user.service';
 
 @Component({
@@ -13,12 +12,12 @@ export class LoginComponent {
 
   user: IUser = { id: 0, username: '' };
 
-  constructor(private router: Router, private userService: UserService, private collectionService: CollectionService) { }
+  constructor(private router: Router, private userService: UserService) { }
 
   setUsername() {
     if (this.user.username && this.user.username.trim() !== '') {
       this.userService.loginUser(this.user).subscribe(result => {
-        localStorage.setItem("userId", result.id.toString());
+        localStorage.setItem("user", result.username);
         this.router.navigate(['/home']);
       })
     }

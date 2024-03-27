@@ -8,7 +8,6 @@ export class CardManagement {
 
     protected cards: ICard[] = [];
     protected userCollection: ICardCollection = {
-        userId: 0,
         cardAmountList: []
     };
 
@@ -21,7 +20,7 @@ export class CardManagement {
     }
 
     protected setUserCollection(): void {
-        this.collectionService.getCollection(+localStorage.getItem("userId")!).subscribe(result => {
+        this.collectionService.getCollection().subscribe(result => {
             this.userCollection = result;
         })
     }
