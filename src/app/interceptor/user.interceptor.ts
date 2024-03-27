@@ -1,16 +1,24 @@
-import { HttpInterceptorFn } from '@angular/common/http';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
-export const userInterceptor: HttpInterceptorFn = (req, next) => {
+@Injectable()
+export class UserInterceptor implements HttpInterceptor {
 
-  const username = localStorage.getItem('user');
+  constructor() { }
 
-  if (username) {
-    req = req.clone({
-      setHeaders: {
-        User: username
-      }
-    });
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
+    const username = localStorage.getItem('user');
+
+    if (username) {
+      let requ = request.clone({
+        setHeaders: {
+          User: username
+        }
+      });
+      return next.handle(requ);
+    }
+    return next.handle(request);
   }
-
-  return next(req);
-};
+}

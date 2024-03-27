@@ -16,8 +16,8 @@ export class LoginComponent {
 
   setUsername() {
     if (this.user.username && this.user.username.trim() !== '') {
+      localStorage.setItem("user", this.user.username);
       this.userService.loginUser(this.user).subscribe(result => {
-        localStorage.setItem("user", result.username);
         this.router.navigate(['/home']);
       })
     }
