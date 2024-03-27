@@ -9,6 +9,7 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { PackComponent } from './components/pack/pack.component';
 import { TradeComponent } from './components/trade/trade.component';
+import { AuthorizationInterceptor } from "./interceptor/authorization.interceptor";
 import { UserInterceptor } from './interceptor/user.interceptor';
 
 @NgModule({
@@ -30,6 +31,11 @@ import { UserInterceptor } from './interceptor/user.interceptor';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UserInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthorizationInterceptor,
       multi: true
     }
   ],
